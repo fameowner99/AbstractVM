@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/AbstractVM.dir/main.cpp.o CMakeFiles/AbstractVM.dir/IOperand.cpp.o CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o CMakeFiles/AbstractVM.dir/Parser.cpp.o  -o AbstractVM 
