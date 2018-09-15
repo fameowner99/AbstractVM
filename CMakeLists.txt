@@ -9,4 +9,5 @@ add_executable(AbstractVM
         Operand.hpp
         OperandFactory.cpp
         Parser.cpp
-        Lexer.cpp)
+        Lexer.cpp
+        AvmException.hpp)

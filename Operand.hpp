@@ -8,6 +8,10 @@
 #include <climits>
 #include <cfloat>
 #include <exception>
+#include <sstream>
+#include <iomanip>
+#include "AvmException.hpp"
+
 
 template <typename T>
 class Operand: public IOperand
@@ -54,31 +58,31 @@ class Operand: public IOperand
 	Operand(std::string const &value, eOperandType type, int precision, const OperandFactory *myFactory):
 			_type(type), _precision(precision), _myFactory(myFactory), _str(value)
 	{
-		try
+		if (type < Float)
 		{
-
-			if (type < Float)
-			{
-				long long check;
-				check = std::stoll(_str);
-				if (!checkOverflow<long long>(check, _type))
-					throw myex;
-				_value = static_cast<T>(check);
-
-
-			}
-			else
-			{
-
-			}
+			long long check;
+			check = std::stoll(_str);
+			if (!checkOverflow<long long>(check, _type))
+				throw OperandException("Error : Overflow or Underflow!");
+			_value = static_cast<T>(check);
+			std::stringstream ss(std::ios_base::out);
+			ss << std::setprecision(precision) << check;
+			_str = ss.str();
 		}
-		catch (std::exception& e)
+		else
 		{
-			std::cout << e.what() << std::endl;
-			return ;
+			long double check;
+			check = std::stold(_str);
+			if (!checkOverflow<long double>(check, _type))
+				throw OperandException("Error : Overflow or Underflow!");
+			_value = static_cast<T>(check);
+			std::stringstream ss(std::ios_base::out);
+			ss << std::setprecision(precision) << check;
+			_str = ss.str();
 		}
-
 	}
+
+
 	Operand(const Operand &tmp)
 	{
 		*this = tmp;
@@ -135,13 +139,23 @@ class Operand: public IOperand
 	{
 			return (_str);
 	}
-	class myexception: public std::exception
+	class OperandException: public AvmException
 	{
-		virtual const char* what() const throw()
+		public:
+		OperandException(const std::string& message)
+				: AvmException()
+				, _msg(message)
 		{
-			return "Error : Overflow.";
+
 		}
-	} myex;
+		virtual const char* what() const throw ()
+		{
+			return _msg.c_str();
+		}
+		virtual ~OperandException() throw (){}
+		private:
+			std::string			_msg;
+	};
 
 };
 

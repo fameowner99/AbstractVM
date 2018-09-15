@@ -21,4 +21,40 @@ public:
 
 };
 
+class LexerException: public AvmException
+{
+public:
+	LexerException(const std::string& message)
+			: AvmException()
+			, _msg(message)
+	{
+
+	}
+	virtual const char* what() const throw ()
+	{
+		return _msg.c_str();
+	}
+	virtual ~LexerException() throw (){}
+private:
+	std::string			_msg;
+};
+
+class DevisionException: public AvmException
+{
+public:
+	DevisionException(const std::string& message)
+			: AvmException()
+			, _msg(message)
+	{
+
+	}
+	virtual const char* what() const throw ()
+	{
+		return _msg.c_str();
+	}
+	virtual ~DevisionException() throw (){}
+private:
+	std::string			_msg;
+};
+
 #endif

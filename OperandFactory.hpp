@@ -2,6 +2,10 @@
 
 # define OPERANDFACTORY_HPP
 
+# define INT_PRECISION 0
+# define FLOAT_PRECISION 7
+# define DOUBLE_PRECISION 14
+
 #include "IOperand.hpp"
 #include <map>
 

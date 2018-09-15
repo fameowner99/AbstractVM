@@ -1,9 +1,8 @@
-push int8(129)
-push int32(42)
-push int32(33)
-add
-push float(44.55)
-mul
-push double(42.42)
-push int32(42)
+push int8(3.22)
+push int32(42.3333)
 dump
+pop
+dump
+pop
+dump
+pop
