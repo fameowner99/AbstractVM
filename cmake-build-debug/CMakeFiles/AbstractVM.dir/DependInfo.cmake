@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/fameowner/AbstractVM/IOperand.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/IOperand.cpp.o"
+  "/home/fameowner/AbstractVM/Lexer.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/Lexer.cpp.o"
   "/home/fameowner/AbstractVM/OperandFactory.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o"
   "/home/fameowner/AbstractVM/Parser.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/Parser.cpp.o"
   "/home/fameowner/AbstractVM/main.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/main.cpp.o"

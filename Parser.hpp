@@ -9,19 +9,25 @@
 
 
 
+struct commandInfo
+{
+	std::string name;
+	std::string typeValue;
+	std::string	value;
+	int 		number;
+};
+
 
 class Parser
 {
 	private:
-		bool	parseLine(std::string &line);
-		void	chooseOperation(std::cmatch &result, int n);
-		bool 	check_point(std::string value, std::string type);
-		std::vector<const IOperand*> _mystack;
-		OperandFactory			_factory;
+		bool	parseLine(std::string &line, int numLine);
+		std::vector<commandInfo*>		_commands;
 	public:
-		void	readFromFile(char *file);
-		void	readFromStandartInput();
-		Parser(); // constructor for standart input
+	std::vector<commandInfo*>&		getCommands();
+		bool	readFromFile(char *file);
+		bool	readFromStandartInput();
+		Parser();
 		Parser(const Parser&);
 		Parser operator=(const Parser&);
 		~Parser();

@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/AbstractVM.dir/IOperand.cpp.o"
   "CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o"
   "CMakeFiles/AbstractVM.dir/Parser.cpp.o"
+  "CMakeFiles/AbstractVM.dir/Lexer.cpp.o"
   "AbstractVM.pdb"
   "AbstractVM"
 )

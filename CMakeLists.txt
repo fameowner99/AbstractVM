@@ -8,4 +8,5 @@ add_executable(AbstractVM
         IOperand.cpp
         Operand.hpp
         OperandFactory.cpp
-        Parser.cpp)
+        Parser.cpp
+        Lexer.cpp)

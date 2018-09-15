@@ -12,6 +12,18 @@
 string
 -
 
+/home/fameowner/AbstractVM/Lexer.cpp
+Lexer.hpp
+/home/fameowner/AbstractVM/Lexer.hpp
+
+/home/fameowner/AbstractVM/Lexer.hpp
+Operand.hpp
+/home/fameowner/AbstractVM/Operand.hpp
+OperandFactory.hpp
+/home/fameowner/AbstractVM/OperandFactory.hpp
+Parser.hpp
+/home/fameowner/AbstractVM/Parser.hpp
+
 /home/fameowner/AbstractVM/Operand.hpp
 IOperand.hpp
 /home/fameowner/AbstractVM/IOperand.hpp
@@ -19,6 +31,12 @@ iostream
 -
 OperandFactory.hpp
 /home/fameowner/AbstractVM/OperandFactory.hpp
+climits
+-
+cfloat
+-
+exception
+-
 
 /home/fameowner/AbstractVM/OperandFactory.cpp
 OperandFactory.hpp
@@ -51,4 +69,6 @@ Operand.hpp
 /home/fameowner/AbstractVM/Operand.hpp
 Parser.hpp
 /home/fameowner/AbstractVM/Parser.hpp
+Lexer.hpp
+/home/fameowner/AbstractVM/Lexer.hpp
 

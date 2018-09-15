@@ -150,6 +150,33 @@ IOperand.cpp.s:
 	$(MAKE) -f CMakeFiles/AbstractVM.dir/build.make CMakeFiles/AbstractVM.dir/IOperand.cpp.s
 .PHONY : IOperand.cpp.s
 
+Lexer.o: Lexer.cpp.o
+
+.PHONY : Lexer.o
+
+# target to build an object file
+Lexer.cpp.o:
+	$(MAKE) -f CMakeFiles/AbstractVM.dir/build.make CMakeFiles/AbstractVM.dir/Lexer.cpp.o
+.PHONY : Lexer.cpp.o
+
+Lexer.i: Lexer.cpp.i
+
+.PHONY : Lexer.i
+
+# target to preprocess a source file
+Lexer.cpp.i:
+	$(MAKE) -f CMakeFiles/AbstractVM.dir/build.make CMakeFiles/AbstractVM.dir/Lexer.cpp.i
+.PHONY : Lexer.cpp.i
+
+Lexer.s: Lexer.cpp.s
+
+.PHONY : Lexer.s
+
+# target to generate assembly for a file
+Lexer.cpp.s:
+	$(MAKE) -f CMakeFiles/AbstractVM.dir/build.make CMakeFiles/AbstractVM.dir/Lexer.cpp.s
+.PHONY : Lexer.cpp.s
+
 OperandFactory.o: OperandFactory.cpp.o
 
 .PHONY : OperandFactory.o
@@ -243,6 +270,9 @@ help:
 	@echo "... IOperand.o"
 	@echo "... IOperand.i"
 	@echo "... IOperand.s"
+	@echo "... Lexer.o"
+	@echo "... Lexer.i"
+	@echo "... Lexer.s"
 	@echo "... OperandFactory.o"
 	@echo "... OperandFactory.i"
 	@echo "... OperandFactory.s"

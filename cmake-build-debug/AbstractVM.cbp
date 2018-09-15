@@ -90,6 +90,12 @@
 		<Unit filename="/home/fameowner/AbstractVM/IOperand.hpp">
 			<Option target="AbstractVM"/>
 		</Unit>
+		<Unit filename="/home/fameowner/AbstractVM/Lexer.cpp">
+			<Option target="AbstractVM"/>
+		</Unit>
+		<Unit filename="/home/fameowner/AbstractVM/Lexer.hpp">
+			<Option target="AbstractVM"/>
+		</Unit>
 		<Unit filename="/home/fameowner/AbstractVM/Operand.hpp">
 			<Option target="AbstractVM"/>
 		</Unit>

@@ -3,6 +3,13 @@
 
 CMakeFiles/AbstractVM.dir/IOperand.cpp.o: ../IOperand.cpp
 
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../IOperand.hpp
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../Lexer.cpp
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../Lexer.hpp
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../Operand.hpp
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../OperandFactory.hpp
+CMakeFiles/AbstractVM.dir/Lexer.cpp.o: ../Parser.hpp
+
 CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o: ../IOperand.hpp
 CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o: ../Operand.hpp
 CMakeFiles/AbstractVM.dir/OperandFactory.cpp.o: ../OperandFactory.cpp
@@ -15,6 +22,7 @@ CMakeFiles/AbstractVM.dir/Parser.cpp.o: ../Parser.cpp
 CMakeFiles/AbstractVM.dir/Parser.cpp.o: ../Parser.hpp
 
 CMakeFiles/AbstractVM.dir/main.cpp.o: ../IOperand.hpp
+CMakeFiles/AbstractVM.dir/main.cpp.o: ../Lexer.hpp
 CMakeFiles/AbstractVM.dir/main.cpp.o: ../Operand.hpp
 CMakeFiles/AbstractVM.dir/main.cpp.o: ../OperandFactory.hpp
 CMakeFiles/AbstractVM.dir/main.cpp.o: ../Parser.hpp
