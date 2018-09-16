@@ -2,6 +2,8 @@
 
 # define OPERAND_HPP
 
+#define  EPSILON 0.000007
+
 #include "IOperand.hpp"
 #include <iostream>
 #include "OperandFactory.hpp"
@@ -11,6 +13,7 @@
 #include <sstream>
 #include <iomanip>
 #include "AvmException.hpp"
+#include <cmath>
 
 
 template <typename T>
@@ -23,29 +26,29 @@ class Operand: public IOperand
 		std::string		_str;
 		const OperandFactory *_myFactory;
 	template <typename Type>
-	bool	checkOverflow(Type t, eOperandType type)
+	bool	checkOverflow(Type t, eOperandType type)const
 	{
 		switch (type)
 		{
 			case Int8:
 			{
-				return (t <= INT8_MAX && t >= INT8_MIN);
+				return (t < INT8_MAX && t > INT8_MIN);
 			}
 			case Int16:
 			{
-				return (t <= INT16_MAX && t >= INT16_MIN);
+				return (t < INT16_MAX && t >= INT16_MIN);
 			}
 			case Int32:
 			{
-				return (t <= INT32_MAX && t >= INT32_MIN);
+				return (t < INT32_MAX && t > INT32_MIN);
 			}
 			case Float:
 			{
-				return (t <= FLT_MAX && t >= FLT_MIN);
+				return ((fabs(t) - FLT_MAX < EPSILON) && FLT_MIN - fabsf(t) < EPSILON);
 			}
 			case Double:
 			{
-				return (t <= DBL_MAX && t >= DBL_MIN);
+				return ((fabs(t) - DBL_MAX < EPSILON) && DBL_MIN - fabs(t) < EPSILON);
 			}
 		}
 		return (true);
@@ -58,6 +61,7 @@ class Operand: public IOperand
 	Operand(std::string const &value, eOperandType type, int precision, const OperandFactory *myFactory):
 			_type(type), _precision(precision), _myFactory(myFactory), _str(value)
 	{
+		std::stringstream ss(std::ios_base::out);
 		if (type < Float)
 		{
 			long long check;
@@ -65,7 +69,6 @@ class Operand: public IOperand
 			if (!checkOverflow<long long>(check, _type))
 				throw OperandException("Error : Overflow or Underflow!");
 			_value = static_cast<T>(check);
-			std::stringstream ss(std::ios_base::out);
 			ss << std::setprecision(precision) << check;
 			_str = ss.str();
 		}
@@ -76,7 +79,6 @@ class Operand: public IOperand
 			if (!checkOverflow<long double>(check, _type))
 				throw OperandException("Error : Overflow or Underflow!");
 			_value = static_cast<T>(check);
-			std::stringstream ss(std::ios_base::out);
 			ss << std::setprecision(precision) << check;
 			_str = ss.str();
 		}
@@ -110,35 +112,85 @@ class Operand: public IOperand
 		return (_type);
 	}
 
+	IOperand const	*operation(std::string op, IOperand const & rhs)const
+	{
+		eOperandType type;
+		int 		precision;
+
+		type = (this->_type > rhs.getType()) ? _type : rhs.getType();
+		precision = (this->_precision > rhs.getPrecision()) ? _precision : rhs.getPrecision();
+		std::stringstream ss(std::ios_base::out);
+		if (type < Float)
+		{
+			long long check = 0;
+			if (op == "+")
+				check = this->_value + std::stoll(rhs.toString());
+			else if (op == "-")
+				check = this->_value - std::stoll(rhs.toString());
+			else if (op == "*")
+				check = this->_value * std::stoll(rhs.toString());
+			else if (op == "/")
+				check = this->_value / std::stoll(rhs.toString());
+			else if (op == "%")
+				check = std::stoll(this->_str) % std::stoll(rhs.toString());
+			if (!checkOverflow<long long>(check, type))
+				throw OperandException("Error : Overflow or Underflow!");
+			ss << std::setprecision(precision) << check;
+
+		}
+		else
+		{
+			long double check = 0;
+
+			if (op == "+")
+				check = this->_value + std::stold(rhs.toString());
+			else if (op == "-")
+				check = this->_value - std::stold(rhs.toString());
+			else if (op == "*")
+				check = this->_value * std::stold(rhs.toString());
+			else if (op == "/")
+				check = this->_value / std::stold(rhs.toString());
+			else if (op == "%")
+				check = fmod(this->_value , std::stoll(rhs.toString()));
+			if (!checkOverflow<long double>(check, type))
+				throw OperandException("Error : Overflow or Underflow!");
+			ss << std::setprecision(precision) << check;
+		}
+		return (_myFactory->createOperand(type, ss.str()));
+	}
+
 	IOperand const * operator+(IOperand const & rhs)const
 	{
-
+		return operation("+", rhs);
 	}
 
 	IOperand const * operator-( IOperand const & rhs )const
 	{
-
+		return operation("-", rhs);
 	}
 
 	IOperand const * operator*( IOperand const & rhs )const
 	{
-
+		return operation("*", rhs);
 	}
 
 	IOperand const * operator/( IOperand const & rhs )const
 	{
-
+		if (std::stold(rhs.toString()) == 0)
+			throw OperandException("Error : Division by zero !");
+		return operation("/", rhs);
 	}
 
 	IOperand const * operator%( IOperand const & rhs )const
 	{
-
+		return operation("%", rhs);
 	}
 
 	std::string const & toString()const
 	{
 			return (_str);
 	}
+
 	class OperandException: public AvmException
 	{
 		public:

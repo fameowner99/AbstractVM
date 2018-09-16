@@ -1,112 +1,153 @@
 #include "Lexer.hpp"
 
-
-void	Lexer::chooseOperation(commandInfo *inf)
+Lexer::Lexer()
 {
-	if (inf->name == "pop")
-	{
-		if (_mystack.empty())
-			throw LexerException("Error : Can not pop on empty stack!");
-		else
-			_mystack.pop_back();
+
+
+}
+
+
+Lexer::Lexer(const Lexer& tmp)
+{
+	*this = tmp;
+}
+
+Lexer Lexer::operator=(const Lexer&)
+{
+
+}
+
+Lexer::~Lexer()
+{
+
+}
+
+bool	Lexer::readFromFile(char *file)
+{
+	std::ifstream fin(file);
+	std::string line;
+	int numLine = 1;
+	if (fin.fail()) {
+		std::cout << "Wrong file!" << std::endl;
+		return (false);
 	}
-	else if (inf->name  == "dump")
+	while (std::getline(fin, line)) {
+		lexLine(line, numLine);
+		++numLine;
+	}
+	if (_errors.empty())
+		return (true);
+	printVectorErrors();
+	return (false);
+}
+
+bool	Lexer::lexLine(std::string &line, int numLine)
+{
+	commandInfo *inf;
+	std::cmatch result;
+	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*)");
+	std::regex other("((((^;+).*)|[pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*))");
+	commandInfo *error;
+
+	if (std::regex_match(line.c_str(), result, other))
 	{
-		if (_mystack.empty())
+		if (result[1].str()[0] != ';')
 		{
-			std::cout << "Stack is empty!" << std::endl;
+			inf = new commandInfo;
+			inf->name = result[1];
+			inf->number = numLine;
+			inf->typeValue = "";
+			inf->value = "";
+			_commands.push_back(inf);
 		}
-		else
-			{
-			reverse(_mystack.begin(), _mystack.end());
-
-			for (auto it = _mystack.begin(); it != _mystack.end(); ++it) {
-				std::cout << (*it)->toString() << std::endl;
-			}
-			reverse(_mystack.begin(), _mystack.end());
-			}
+		return (true);
 	}
-	else if (inf->name  == "add")
+	else if (std::regex_match(line.c_str(), result, push_assert))
 	{
 
+		inf = new commandInfo;
+		inf->name = result[1];
+		inf->number = numLine;
+		inf->typeValue = result[3];
+		inf->value = result[5];
+		_commands.push_back(inf);
+		return (true);
 	}
-	else if (inf->name  == "sub")
+	else if (line == "")
+		return (true);
+	else
 	{
-
+		error = new commandInfo;
+		error->name = line;
+		error->number = numLine;
+		error->typeValue = "";
+		error->value = "";
+		_errors.push_back(error);
 	}
-	else if (inf->name  == "mul")
-	{
-
-	}
-	else if (inf->name  == "div")
-	{
-
-	}
-	else if (inf->name  == "mod")
-	{
-
-	}
-	else if (inf->name  == "print")
-	{
-
-	}
-	else if (inf->name  == "exit")
-	{
-
-	}
-	else if (inf->name  == "push")
-	{
-		pushValue(chooseOperand(inf->typeValue), inf->value);
-	}
-	else if (inf->name  == "assert")
-	{
-
-	}
-
+	return (true);
 }
 
 
-void	Lexer::pushValue(const eOperandType operand, const std::string value)
+bool	Lexer::readFromStandartInput()
 {
+	std::cmatch result;
+	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*)");
+	std::regex other("(([pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*))");
+	std::string	line;
+	int 	numLine = 1;
 
-	_mystack.push_back(_factory.createOperand(operand, value));
+	while (std::getline(std::cin, line))
+	{
+		if (line == ";;")
+			break ;
+		lexLine(line, numLine);
+		++numLine;
+	}
+	if (_errors.empty())
+		return (true);
+	printVectorErrors();
+	return (false);
 }
 
-eOperandType Lexer::chooseOperand(const std::string &str)const
+void	Lexer::printVectorErrors()
 {
-	if (str == "int8")
+	for(auto it = _errors.begin(); it != _errors.end(); ++it)
 	{
-		return (Int8);
+		std::cout << "Line " << (*it)->number << " : Error : " << (*it)->name << std::endl;
 	}
-	else if (str == "int16")
-	{
-		return (Int16);
-	}
-	else if (str == "int32")
-	{
-		return (Int32);
-	}
-	else if (str == "float")
-	{
-		return (Float);
-	}
-	else if (str == "double")
-	{
-		return (Double);
-	}
+	std::cout << std::endl;
+	std::cout << "S := INSTR [SEP INSTR]* 	#" << std::endl;
+	std::cout << "INSTR :=" << std::endl;
+	std::cout << "push VALUE" << std::endl;
+	std::cout << "| pop" << std::endl;
+	std::cout << "| dump" << std::endl;
+	std::cout << "| assert VALUE" << std::endl;
+	std::cout << "| add" << std::endl;
+	std::cout << "| sub" << std::endl;
+	std::cout << "| mul" << std::endl;
+	std::cout << "| div" << std::endl;
+	std::cout << "| mod" << std::endl;
+	std::cout << "| print" << std::endl;
+	std::cout << "| exit" << std::endl;
+	std::cout << std::endl;
+	std::cout << "VALUE :=" << std::endl;
+	std::cout << "int8(N)" << std::endl;
+	std::cout << "| int16(N)" << std::endl;
+	std::cout << "| int32(N)" << std::endl;
+	std::cout << "| float(Z)" << std::endl;
+	std::cout << "| double(Z)" << std::endl;
+	std::cout << std::endl;
+	std::cout << "N := [-]?[0..9]+" << std::endl;
+	std::cout <<  std::endl;
+	std::cout << "Z := [-]?[0..9]+.[0..9]+" << std::endl;
+	std::cout << std::endl;
+	std::cout << "SEP := '\\n'+" << std::endl;
+
+
+
 }
-void	Lexer::lexer(const std::vector<commandInfo*> &commands)const
+
+std::vector<commandInfo*>		&Lexer::getCommands()
 {
-	for (auto it = commands.begin(); it != commands.end(); ++it)
-	{
-		const_cast<Lexer*>(this)->chooseOperation(*it);
-	}
-
-}
-
-
-Lexer::Lexer(const std::vector<commandInfo*> &commands)
-{
-	lexer(commands);
-
+	return (_commands);
 }

@@ -1,8 +1,6 @@
-push int8(3.22)
-push int32(42.3333)
+push int8(22)
+das
 dump
-pop
+dsadasdasd
+reverse
 dump
-pop
-dump
-pop

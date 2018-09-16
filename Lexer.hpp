@@ -3,58 +3,37 @@
 # define LEXER_HPP
 
 #include "Operand.hpp"
-#include "OperandFactory.hpp"
-#include "Parser.hpp"
+#include <fstream>
+#include <regex>
+#include <vector>
+
+
+
+struct commandInfo
+{
+	std::string name;
+	std::string typeValue;
+	std::string	value;
+	int 		number;
+};
+
 
 class Lexer
 {
-private:
-	std::vector<const IOperand*> _mystack;
-	void	chooseOperation(commandInfo *inf);
-	eOperandType chooseOperand(const std::string &str)const;
-	void	pushValue(const eOperandType operand, const std::string value);
-	OperandFactory			_factory;
-	void	lexer(const std::vector<commandInfo*>&)const;
-public:
-	Lexer();
-	Lexer(const std::vector<commandInfo*>&);
-
+	private:
+		bool	lexLine(std::string &line, int numLine);
+		std::vector<commandInfo*>		_commands;
+		std::vector<commandInfo*>		_errors;
+		void	printVectorErrors();
+	public:
+	std::vector<commandInfo*>&		getCommands();
+		bool	readFromFile(char *file);
+		bool	readFromStandartInput();
+		Lexer();
+		Lexer(const Lexer&);
+		Lexer operator=(const Lexer&);
+		~Lexer();
 };
 
-class LexerException: public AvmException
-{
-public:
-	LexerException(const std::string& message)
-			: AvmException()
-			, _msg(message)
-	{
-
-	}
-	virtual const char* what() const throw ()
-	{
-		return _msg.c_str();
-	}
-	virtual ~LexerException() throw (){}
-private:
-	std::string			_msg;
-};
-
-class DevisionException: public AvmException
-{
-public:
-	DevisionException(const std::string& message)
-			: AvmException()
-			, _msg(message)
-	{
-
-	}
-	virtual const char* what() const throw ()
-	{
-		return _msg.c_str();
-	}
-	virtual ~DevisionException() throw (){}
-private:
-	std::string			_msg;
-};
 
 #endif
