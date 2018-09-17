@@ -1,0 +1,3 @@
+/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir

@@ -117,36 +117,6 @@ void	Lexer::printVectorErrors()
 	{
 		std::cout << "Line " << (*it)->number << " : Error : " << (*it)->name << std::endl;
 	}
-	std::cout << std::endl;
-	std::cout << "S := INSTR [SEP INSTR]* 	#" << std::endl;
-	std::cout << "INSTR :=" << std::endl;
-	std::cout << "push VALUE" << std::endl;
-	std::cout << "| pop" << std::endl;
-	std::cout << "| dump" << std::endl;
-	std::cout << "| assert VALUE" << std::endl;
-	std::cout << "| add" << std::endl;
-	std::cout << "| sub" << std::endl;
-	std::cout << "| mul" << std::endl;
-	std::cout << "| div" << std::endl;
-	std::cout << "| mod" << std::endl;
-	std::cout << "| print" << std::endl;
-	std::cout << "| exit" << std::endl;
-	std::cout << std::endl;
-	std::cout << "VALUE :=" << std::endl;
-	std::cout << "int8(N)" << std::endl;
-	std::cout << "| int16(N)" << std::endl;
-	std::cout << "| int32(N)" << std::endl;
-	std::cout << "| float(Z)" << std::endl;
-	std::cout << "| double(Z)" << std::endl;
-	std::cout << std::endl;
-	std::cout << "N := [-]?[0..9]+" << std::endl;
-	std::cout <<  std::endl;
-	std::cout << "Z := [-]?[0..9]+.[0..9]+" << std::endl;
-	std::cout << std::endl;
-	std::cout << "SEP := '\\n'+" << std::endl;
-
-
-
 }
 
 std::vector<commandInfo*>		&Lexer::getCommands()

@@ -112,9 +112,8 @@ void	Parser::chooseOperation(commandInfo *inf)
 	{
 		if (_mystack.empty())
 			throw ParserException("Error : Can not assert on empty stack!");
-		Wrapper_around<const IOperand*> o( _mystack.back());
-		_mystack.pop_back();
-		pushValue(chooseOperand(inf->typeValue), inf->value);
+		if (std::abs(std::stold(inf->value)) - std::abs(std::stold(_mystack.back()->toString())) > EPSILON)
+			throw ParserException("Error : Values are not equal");
 	}
 	else if (inf->name.find("reverse", 0) != std::string::npos)
 	{
@@ -170,6 +169,11 @@ void	Parser::parser(const std::vector<commandInfo*> &commands)const
 		{
 			std::cout << e.what() << std::endl;
 		}
+		catch (std::exception)
+		{
+			std::cout << "Overflow or Underflow!" << std::endl;
+		}
+
 	}
 
 }
