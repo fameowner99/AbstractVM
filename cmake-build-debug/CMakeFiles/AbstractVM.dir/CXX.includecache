@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/Users/vmiachko/AbstractVM/inc/AvmException.hpp
+/home/fameowner/AbstractVM/inc/AvmException.hpp
 iostream
 -
 
-/Users/vmiachko/AbstractVM/inc/IOperand.hpp
+/home/fameowner/AbstractVM/inc/IOperand.hpp
 string
 -
 
-/Users/vmiachko/AbstractVM/inc/Lexer.hpp
+/home/fameowner/AbstractVM/inc/Lexer.hpp
 Operand.hpp
-/Users/vmiachko/AbstractVM/inc/Operand.hpp
+/home/fameowner/AbstractVM/inc/Operand.hpp
 fstream
 -
 regex
@@ -24,13 +24,13 @@ regex
 vector
 -
 
-/Users/vmiachko/AbstractVM/inc/Operand.hpp
+/home/fameowner/AbstractVM/inc/Operand.hpp
 IOperand.hpp
-/Users/vmiachko/AbstractVM/inc/IOperand.hpp
+/home/fameowner/AbstractVM/inc/IOperand.hpp
 iostream
 -
 OperandFactory.hpp
-/Users/vmiachko/AbstractVM/inc/OperandFactory.hpp
+/home/fameowner/AbstractVM/inc/OperandFactory.hpp
 climits
 -
 cfloat
@@ -42,17 +42,45 @@ sstream
 iomanip
 -
 AvmException.hpp
-/Users/vmiachko/AbstractVM/inc/AvmException.hpp
+/home/fameowner/AbstractVM/inc/AvmException.hpp
 cmath
 -
 
-/Users/vmiachko/AbstractVM/inc/OperandFactory.hpp
+/home/fameowner/AbstractVM/inc/OperandFactory.hpp
 IOperand.hpp
-/Users/vmiachko/AbstractVM/inc/IOperand.hpp
+/home/fameowner/AbstractVM/inc/IOperand.hpp
 map
 -
 
-/Users/vmiachko/AbstractVM/src/Lexer.cpp
+/home/fameowner/AbstractVM/inc/Parser.hpp
+Operand.hpp
+/home/fameowner/AbstractVM/inc/Operand.hpp
+OperandFactory.hpp
+/home/fameowner/AbstractVM/inc/OperandFactory.hpp
+Lexer.hpp
+/home/fameowner/AbstractVM/inc/Lexer.hpp
+Wrapper.hpp
+/home/fameowner/AbstractVM/inc/Wrapper.hpp
+
+/home/fameowner/AbstractVM/inc/Wrapper.hpp
+
+/home/fameowner/AbstractVM/src/Lexer.cpp
 ../inc/Lexer.hpp
-/Users/vmiachko/AbstractVM/inc/Lexer.hpp
+/home/fameowner/AbstractVM/inc/Lexer.hpp
+
+/home/fameowner/AbstractVM/src/OperandFactory.cpp
+../inc/OperandFactory.hpp
+/home/fameowner/AbstractVM/inc/OperandFactory.hpp
+../inc/Operand.hpp
+/home/fameowner/AbstractVM/inc/Operand.hpp
+
+/home/fameowner/AbstractVM/src/Parser.cpp
+../inc/Parser.hpp
+/home/fameowner/AbstractVM/inc/Parser.hpp
+
+/home/fameowner/AbstractVM/src/main.cpp
+../inc/Operand.hpp
+/home/fameowner/AbstractVM/inc/Operand.hpp
+../inc/Parser.hpp
+/home/fameowner/AbstractVM/inc/Parser.hpp
 

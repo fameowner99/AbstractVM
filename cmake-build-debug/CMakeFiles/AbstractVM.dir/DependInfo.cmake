@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/vmiachko/AbstractVM/src/Lexer.cpp" "/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/Lexer.cpp.o"
-  "/Users/vmiachko/AbstractVM/src/OperandFactory.cpp" "/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/OperandFactory.cpp.o"
-  "/Users/vmiachko/AbstractVM/src/Parser.cpp" "/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/Parser.cpp.o"
-  "/Users/vmiachko/AbstractVM/src/main.cpp" "/Users/vmiachko/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/main.cpp.o"
+  "/home/fameowner/AbstractVM/src/Lexer.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/Lexer.cpp.o"
+  "/home/fameowner/AbstractVM/src/OperandFactory.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/OperandFactory.cpp.o"
+  "/home/fameowner/AbstractVM/src/Parser.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/Parser.cpp.o"
+  "/home/fameowner/AbstractVM/src/main.cpp" "/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir/src/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
