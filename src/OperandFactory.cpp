@@ -1,5 +1,5 @@
-#include "OperandFactory.hpp"
-#include "Operand.hpp"
+#include "../inc/OperandFactory.hpp"
+#include "../inc/Operand.hpp"
 
 
 OperandFactory::OperandFactory()

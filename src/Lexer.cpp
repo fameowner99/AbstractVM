@@ -1,4 +1,4 @@
-#include "Lexer.hpp"
+#include "../inc/Lexer.hpp"
 
 Lexer::Lexer()
 {
@@ -15,11 +15,13 @@ Lexer::Lexer(const Lexer& tmp)
 Lexer Lexer::operator=(const Lexer&)
 {
 
+	return (*this);
 }
 
 Lexer::~Lexer()
 {
-
+	freeVectorCommands();
+	freeVectorErrors();
 }
 
 bool	Lexer::readFromFile(char *file)
@@ -150,4 +152,22 @@ void	Lexer::printVectorErrors()
 std::vector<commandInfo*>		&Lexer::getCommands()
 {
 	return (_commands);
+}
+
+void	Lexer::freeVectorCommands()
+{
+	for (const auto& item : _commands)
+	{
+		delete(item);
+	}
+	_commands.clear();
+}
+
+void	Lexer::freeVectorErrors()
+{
+	for (const auto& item : _errors)
+	{
+		delete(item);
+	}
+	_errors.clear();
 }

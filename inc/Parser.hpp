@@ -5,7 +5,7 @@
 #include "Operand.hpp"
 #include "OperandFactory.hpp"
 #include "Lexer.hpp"
-
+#include "Wrapper.hpp"
 class Parser
 {
 private:
@@ -21,6 +21,7 @@ public:
 	Parser(const std::vector<commandInfo*>&);
 	Parser operator=(const Parser&);
 	bool 	getExit();
+	~Parser();
 
 };
 

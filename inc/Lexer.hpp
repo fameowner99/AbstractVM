@@ -25,6 +25,8 @@ class Lexer
 		std::vector<commandInfo*>		_commands;
 		std::vector<commandInfo*>		_errors;
 		void	printVectorErrors();
+		void	freeVectorCommands();
+		void	freeVectorErrors();
 	public:
 	std::vector<commandInfo*>&		getCommands();
 		bool	readFromFile(char *file);

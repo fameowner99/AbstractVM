@@ -1,4 +1,4 @@
-#include "Parser.hpp"
+#include "../inc/Parser.hpp"
 
 
 bool 	Parser::getExit()
@@ -14,9 +14,8 @@ void	Parser::chooseOperation(commandInfo *inf)
 			throw ParserException("Error : Can not pop on empty stack!");
 		else
 		{
-			const IOperand *o = _mystack.back();
+			Wrapper_around<const IOperand*> o( _mystack.back());
 			_mystack.pop_back();
-			delete o;
 		}
 	}
 	else if (inf->name.find("dump", 0) != std::string::npos)
@@ -39,67 +38,56 @@ void	Parser::chooseOperation(commandInfo *inf)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		const IOperand *o1 = _mystack.back();
+		Wrapper_around<const IOperand*> o1( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *o2 = _mystack.back();
+		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *result = *o1 + *o2;
+		const IOperand *result = *o1.getValue() + *o2.getValue();
 		_mystack.push_back(result);
-		delete o1;
-		delete o2;
 	}
 	else if (inf->name.find("sub", 0) != std::string::npos)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		const IOperand *o1 = _mystack.back();
+		Wrapper_around<const IOperand*> o1( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *o2 = _mystack.back();
+		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *result = *o2 - *o1;
+		const IOperand *result = *o2.getValue() - *o1.getValue();
 		_mystack.push_back(result);
-		delete o1;
-		delete o2;
 	}
 	else if (inf->name.find("mul", 0) != std::string::npos)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		const IOperand *o1 = _mystack.back();
+		Wrapper_around<const IOperand*> o1( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *o2 = _mystack.back();
+		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *result = *o1 * *o2;
+		const IOperand *result = *o1.getValue() * *o2.getValue();
 		_mystack.push_back(result);
-		delete o1;
-		delete o2;
 	}
 	else if (inf->name.find("div", 0) != std::string::npos)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		const IOperand *o1 = _mystack.back();
+		Wrapper_around<const IOperand*> o1( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *o2 = _mystack.back();
-
+		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *result = *o2 / *o1;
+		const IOperand *result = *o2.getValue() / *o1.getValue();
 		_mystack.push_back(result);
-		delete o1;
-		delete o2;
 	}
 	else if (inf->name.find("mod", 0) != std::string::npos)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		const IOperand *o1 = _mystack.back();
+		Wrapper_around<const IOperand*> o1( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *o2 = _mystack.back();
+		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
-		const IOperand *result = *o2 % *o1;
+		const IOperand *result = *o2.getValue() % *o1.getValue();
 		_mystack.push_back(result);
-		delete o1;
-		delete o2;
 	}
 	else if (inf->name.find("print", 0) != std::string::npos)
 	{
@@ -107,6 +95,8 @@ void	Parser::chooseOperation(commandInfo *inf)
 			throw (ParserException("Error : Can not use print instruction on empty stack!"));
 		if (_mystack.back()->getType() != Int8)
 			throw (ParserException("Error : Can not use print instruction on not 8-bit integer!"));
+		if (_mystack.back()->toString()[0] == '-')
+			throw (ParserException("Error : Can not print value < 0!"));
 		std::cout << static_cast<char>(std::stoi(_mystack.back()->toString())) << std::endl;
 	}
 	else if (inf->name.find("exit", 0) != std::string::npos)
@@ -122,9 +112,8 @@ void	Parser::chooseOperation(commandInfo *inf)
 	{
 		if (_mystack.empty())
 			throw ParserException("Error : Can not assert on empty stack!");
-		const IOperand *o = _mystack.back();
+		Wrapper_around<const IOperand*> o( _mystack.back());
 		_mystack.pop_back();
-		delete o;
 		pushValue(chooseOperand(inf->typeValue), inf->value);
 	}
 	else if (inf->name.find("reverse", 0) != std::string::npos)
@@ -166,13 +155,21 @@ eOperandType Parser::chooseOperand(const std::string &str)const
 	{
 		return (Double);
 	}
+	return (Int8);
 }
 
 void	Parser::parser(const std::vector<commandInfo*> &commands)const
 {
 	for (auto it = commands.begin(); it != commands.end(); ++it)
 	{
-		const_cast<Parser*>(this)->chooseOperation(*it);
+		try
+		{
+			const_cast<Parser *>(this)->chooseOperation(*it);
+		}
+		catch (AvmException &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
 
 }
@@ -183,4 +180,13 @@ Parser::Parser(const std::vector<commandInfo*> &commands): _exit(false)
 	if (commands.empty())
 		throw (ParserException("Error : No instructions!"));
 	parser(commands);
+}
+
+Parser::~Parser()
+{
+	for (const auto& item : _mystack)
+	{
+		delete(item);
+	}
+	_mystack.clear();
 }

@@ -32,23 +32,23 @@ class Operand: public IOperand
 		{
 			case Int8:
 			{
-				return (t < INT8_MAX && t > INT8_MIN);
+				return (t <= INT8_MAX && t >= INT8_MIN);
 			}
 			case Int16:
 			{
-				return (t < INT16_MAX && t >= INT16_MIN);
+				return (t <= INT16_MAX && t >= INT16_MIN);
 			}
 			case Int32:
 			{
-				return (t < INT32_MAX && t > INT32_MIN);
+				return (t <= INT32_MAX && t >= INT32_MIN);
 			}
 			case Float:
 			{
-				return ((fabs(t) - FLT_MAX < EPSILON) && FLT_MIN - fabsf(t) < EPSILON);
+				return ((std::abs(t) - FLT_MAX <= EPSILON) && FLT_MIN - std::abs(t) <= EPSILON);
 			}
 			case Double:
 			{
-				return ((fabs(t) - DBL_MAX < EPSILON) && DBL_MIN - fabs(t) < EPSILON);
+				return ((std::abs(t) - DBL_MAX <= EPSILON) && DBL_MIN - std::abs(t) <= EPSILON);
 			}
 		}
 		return (true);
@@ -59,7 +59,7 @@ class Operand: public IOperand
 	}
 
 	Operand(std::string const &value, eOperandType type, int precision, const OperandFactory *myFactory):
-			_type(type), _precision(precision), _myFactory(myFactory), _str(value)
+			_type(type), _precision(precision), _str(value), _myFactory(myFactory)
 	{
 		std::stringstream ss(std::ios_base::out);
 		if (type < Float)
