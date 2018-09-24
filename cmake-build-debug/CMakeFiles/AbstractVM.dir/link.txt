@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/AbstractVM.dir/src/Lexer.cpp.o CMakeFiles/AbstractVM.dir/src/main.cpp.o CMakeFiles/AbstractVM.dir/src/OperandFactory.cpp.o CMakeFiles/AbstractVM.dir/src/Parser.cpp.o  -o AbstractVM 

@@ -1,3 +1,0 @@
-/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/fameowner/AbstractVM/cmake-build-debug/CMakeFiles/AbstractVM.dir

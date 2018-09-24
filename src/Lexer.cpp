@@ -47,8 +47,8 @@ bool	Lexer::lexLine(std::string &line, int numLine)
 {
 	commandInfo *inf;
 	std::cmatch result;
-	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*|([;]{1,1}+.*))");
-	std::regex other("((((^;+).*)|[pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*|([;]{1,1}+.*)))");
+	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*|([;]+.*))");
+	std::regex other("((((^;+).*)|[pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*|([;]+.*)))");
 	commandInfo *error;
 
 	if (std::regex_match(line.c_str(), result, other))
@@ -93,8 +93,8 @@ bool	Lexer::lexLine(std::string &line, int numLine)
 bool	Lexer::readFromStandartInput()
 {
 	std::cmatch result;
-	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*|([;]{1,1}+.*))");
-	std::regex other("(([pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*|([;]{1,1}+.*)))");
+	std::regex push_assert("([push]{4,4}|[assert]{6,6})([ ]+)([int8]{4,4}|[int16]{5,5}|[int32]{5,5}|[float]{5,5}|[double]{6,6})([(])(-?[0-9]+\\.?[0-9]*)([)])([ \n\t]*|([;]+.*))");
+	std::regex other("((((^;+).*)|[pop]{3,3}|[dump]{4,4}|[add]{3,3}|[sub]{3,3}|[mul]{3,3}|[div]{3,3}|[mod]{3,3}|[print]{5,5}|[exit]{4,4}|[reverse]{7,7})([ \n\t]*|([;]+.*)))");
 	std::string	line;
 	int 	numLine = 1;
 
