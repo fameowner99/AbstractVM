@@ -22,23 +22,14 @@ public:
 	Parser operator=(const Parser&);
 	bool 	getExit();
 	~Parser();
-
 };
 
 class ParserException: public AvmException
 {
 public:
-	explicit ParserException(const std::string& message)
-			: AvmException()
-			, _msg(message)
-	{
-
-	}
-	virtual const char* what() const throw ()
-	{
-		return _msg.c_str();
-	}
-	virtual ~ParserException() throw (){}
+	explicit ParserException(const std::string& message);
+	virtual const char* what() const throw ();
+	virtual ~ParserException() throw ();
 private:
 	std::string			_msg;
 };
@@ -46,17 +37,9 @@ private:
 class OperationException: public AvmException
 {
 public:
-	explicit OperationException(const std::string& message)
-			: AvmException()
-			, _msg(message)
-	{
-
-	}
-	virtual const char* what() const throw ()
-	{
-		return _msg.c_str();
-	}
-	virtual ~OperationException() throw (){}
+	explicit OperationException(const std::string& message);
+	virtual const char* what() const throw ();
+	virtual ~OperationException() throw ();
 private:
 	std::string			_msg;
 };

@@ -38,7 +38,7 @@ void	Parser::chooseOperation(commandInfo *inf)
 	{
 		if (_mystack.size() < 2)
 			throw OperationException("Error : There are less than 2 values in stack!");
-		Wrapper_around<const IOperand*> o1( _mystack.back());
+		Wrapper_around<const IOperand*> o1( _mystack.back()); // have created Wrapper_around in order to delete memory(in wrapper destructor) in case of exception
 		_mystack.pop_back();
 		Wrapper_around<const IOperand*> o2( _mystack.back());
 		_mystack.pop_back();
@@ -112,7 +112,7 @@ void	Parser::chooseOperation(commandInfo *inf)
 	{
 		if (_mystack.empty())
 			throw ParserException("Error : Can not assert on empty stack!");
-		if (std::abs(std::stold(inf->value)) - std::abs(std::stold(_mystack.back()->toString())) > EPSILON)
+		if (std::abs(std::stold(inf->value) - std::stold(_mystack.back()->toString())) > EPSILON)
 			throw ParserException("Error : Values are not equal");
 	}
 	else if (inf->name.find("reverse", 0) != std::string::npos)
@@ -177,7 +177,6 @@ void	Parser::parser(const std::vector<commandInfo*> &commands)const
 	}
 
 }
-
 
 Parser::Parser(const std::vector<commandInfo*> &commands): _exit(false)
 {

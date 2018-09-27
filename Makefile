@@ -6,7 +6,8 @@ FLAGS = -std=c++11 -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRC = src/Lexer.cpp src/main.cpp src/OperandFactory.cpp src/Parser.cpp
+SRC = src/Lexer.cpp src/main.cpp src/OperandFactory.cpp src/Parser.cpp \
+	src/AvmException.cpp src/OperationException.cpp src/ParserException.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
